@@ -1,4 +1,4 @@
-# 🏡 Airbnb Clone
+# 🏡 Airbnb
 
 Ứng dụng đặt phòng lưu trú lấy cảm hứng từ Airbnb — đồ án full‑stack (CyberSoft).
 Người dùng có thể khám phá chỗ ở khắp Việt Nam, xem chi tiết, đặt phòng, đánh giá và quản lý hồ sơ cá nhân.
@@ -63,19 +63,11 @@ npm run dev
 > Chạy **backend trước**, sau đó mới chạy frontend.
 
 ## 🔑 Tài khoản demo
-
-Mọi tài khoản trong dữ liệu mẫu dùng chung mật khẩu **`123456`**:
-
-| Email | Mật khẩu |
-|-------|----------|
-| `minhanh@gmail.com` | `123456` |
-| `admin@cybersoft.edu.vn` | `123456` |
-
-## 📌 Ghi chú
+nhat@gmail.com - 123456
+# 📌 Ghi chú
 
 - Auth dùng **cookie httpOnly**; trạng thái đăng nhập được đọc sẵn phía server để tránh nhấp nháy khi tải trang.
 - Ảnh demo lấy từ Unsplash; ảnh upload (avatar, phòng) phục vụ tĩnh từ backend tại `/avatars`, `/...`.
 
 ---
 
-*Đồ án học tập — CyberSoft.*
