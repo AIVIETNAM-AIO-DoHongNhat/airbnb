@@ -1,0 +1,112 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/modules-system/prisma/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model BinhLuanTb {
+  id              Int         @id @default(autoincrement())
+  maCongViec      Int
+  maNguoiBinhLuan Int
+  ngayBinhLuan    DateTime?   @default(now()) @db.DateTime(0)
+  noiDung         String?     @db.VarChar(1000)
+  saoBinhLuan     Int?        @default(5)
+  deletedBy       Int         @default(0)
+  isDeleted       Boolean     @default(false)
+  deletedAt       DateTime?   @db.Timestamp(0)
+  createdAt       DateTime    @default(now()) @db.Timestamp(0)
+  updatedAt       DateTime    @default(now()) @db.Timestamp(0)
+  PhongTb         PhongTb     @relation(fields: [maCongViec], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "BinhLuanTb_ibfk_1")
+  NguoiDungTb     NguoiDungTb @relation(fields: [maNguoiBinhLuan], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "BinhLuanTb_ibfk_2")
+
+  @@index([maCongViec], map: "maCongViec")
+  @@index([maNguoiBinhLuan], map: "maNguoiBinhLuan")
+}
+
+model DatPhongTb {
+  id           Int         @id @default(autoincrement())
+  maPhong      Int
+  ngayDen      DateTime    @db.DateTime(0)
+  ngayDi       DateTime    @db.DateTime(0)
+  soLuongKhach Int?        @default(1)
+  maNguoiDat   Int
+  deletedBy    Int         @default(0)
+  isDeleted    Boolean     @default(false)
+  deletedAt    DateTime?   @db.Timestamp(0)
+  createdAt    DateTime    @default(now()) @db.Timestamp(0)
+  updatedAt    DateTime    @default(now()) @db.Timestamp(0)
+  PhongTb      PhongTb     @relation(fields: [maPhong], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "DatPhongTb_ibfk_1")
+  NguoiDungTb  NguoiDungTb @relation(fields: [maNguoiDat], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "DatPhongTb_ibfk_2")
+
+  @@index([maNguoiDat], map: "maNguoiDat")
+  @@index([maPhong], map: "maPhong")
+}
+
+model NguoiDungTb {
+  id         Int          @id @default(autoincrement())
+  name       String       @db.VarChar(100)
+  email      String       @unique(map: "email") @db.VarChar(150)
+  password   String       @db.VarChar(255)
+  phone      String?      @db.VarChar(20)
+  birthday   String?      @db.VarChar(20)
+  gender     String?      @db.VarChar(10)
+  role       String?      @default("USER") @db.VarChar(20)
+  avatar     String?      @db.VarChar(255)
+  deletedBy  Int          @default(0)
+  isDeleted  Boolean      @default(false)
+  deletedAt  DateTime?    @db.Timestamp(0)
+  createdAt  DateTime     @default(now()) @db.Timestamp(0)
+  updatedAt  DateTime     @default(now()) @db.Timestamp(0)
+  BinhLuanTb BinhLuanTb[]
+  DatPhongTb DatPhongTb[]
+}
+
+model PhongTb {
+  id         Int          @id @default(autoincrement())
+  tenPhong   String       @db.VarChar(200)
+  khach      Int?         @default(1)
+  phongNgu   Int?         @default(1)
+  giuong     Int?         @default(1)
+  phongTam   Int?         @default(1)
+  moTa       String?      @db.VarChar(1000)
+  giaTien    Int
+  mayGiat    Boolean?     @default(false)
+  banLa      Boolean?     @default(false)
+  tiVi       Boolean?     @default(false)
+  dieuHoa    Boolean?     @default(false)
+  wifi       Boolean?     @default(false)
+  bep        Boolean?     @default(false)
+  doXe       Boolean?     @default(false)
+  hoBoi      Boolean?     @default(false)
+  banUi      Boolean?     @default(false)
+  hinhAnh    String?      @db.VarChar(500)
+  viTri      Int?
+  deletedBy  Int          @default(0)
+  isDeleted  Boolean      @default(false)
+  deletedAt  DateTime?    @db.Timestamp(0)
+  createdAt  DateTime     @default(now()) @db.Timestamp(0)
+  updatedAt  DateTime     @default(now()) @db.Timestamp(0)
+  BinhLuanTb BinhLuanTb[]
+  DatPhongTb DatPhongTb[]
+  ViTriTb    ViTriTb?     @relation(fields: [viTri], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PhongTb_ibfk_1")
+
+  @@index([viTri], map: "viTri")
+}
+
+model ViTriTb {
+  id        Int       @id @default(autoincrement())
+  tenViTri  String    @db.VarChar(150)
+  tinhThanh String?   @db.VarChar(150)
+  quocGia   Int?
+  hinhAnh   String?   @db.VarChar(500)
+  deletedBy Int       @default(0)
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime? @db.Timestamp(0)
+  createdAt DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt DateTime  @default(now()) @db.Timestamp(0)
+  PhongTb   PhongTb[]
+}

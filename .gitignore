@@ -1,0 +1,21 @@
+# Root-level ignores (be/ và fe/ đã có .gitignore riêng cho node_modules, dist, .next)
+
+# Next.js build/trace ở thư mục gốc (nếu có)
+/.next/
+
+# Dependencies (phòng trường hợp cài ở gốc)
+/node_modules
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
